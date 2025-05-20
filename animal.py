@@ -1,6 +1,5 @@
 from organism import Organism
 from abc import abstractmethod
-from world import World
 import random as rd
 from typing import Self
 
@@ -60,4 +59,27 @@ class Animal(Organism):
 
 
     def collision(self, opponent):
-        pass
+        isOppAnimal = isinstance(opponent, Animal)
+        opponentType = opponent.getTypeName()
+        
+        if isOppAnimal:
+            # do opponents collision if it's a turtle
+            if  opponentType == "Turtle":
+                opponent.collision(self)
+                return
+            if self.getStrength() >= opponent.getStrength():
+                self.world.removeOrganism(opponent)
+                self.world.addLog(f"{self.getTypeName()} defeated {opponent.getTypeName()}")
+            else:
+                self.world.removeOrganism(self)
+                self.world.addLog(f"{opponent.getTypeName()} defeated {self.getTypeName()}")
+        else:
+            if opponentType == "Belladonna" or opponentType == "Hogweed":
+                self.world.removeOrganism(self)
+                self.world.removeOrganism(opponent)
+                self.world.addLog(f"{self.getTypeName()} was killed by {opponent.getTypeName()}")
+            elif opponentType == "Guarana":
+                opponent.collision(self)
+            else:
+                self.world.removeOrganism(opponent)
+                self.world.addLog(f"{self.getTypeName()} ate {opponent.getTypeName()}")

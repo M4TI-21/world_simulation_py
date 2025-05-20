@@ -71,3 +71,9 @@ class Organism:
 
     def increaseAge(self):
         self.age += 1
+
+    def increaseStrength(self):
+        self.strength += 3
+
+    def kill(self):
+        self.isAlive = False

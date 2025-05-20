@@ -1,7 +1,6 @@
 import tkinter as tk
 from defines import *
 from world import World
-from grass import Grass
 
 root = tk.Tk()
 root.title("Mateusz Hann - 203308")
@@ -20,19 +19,19 @@ for y in range(0, WINDOW_HEIGHT, FIELD_SIZE):
 
 game = World()
 
-game.addNewOrganism("Grass")
-game.addNewOrganism("Grass")
-game.addNewOrganism("Grass")
-game.addNewOrganism("Sow_thistle")
-game.addNewOrganism("Guarana")
-game.addNewOrganism("Guarana")
-game.addNewOrganism("Guarana")
-game.addNewOrganism("Belladonna")
-game.addNewOrganism("Belladonna")
-game.addNewOrganism("Belladonna")
-game.addNewOrganism("Hogweed")
-game.addNewOrganism("Hogweed")
-game.addNewOrganism("Hogweed")
+# game.addNewOrganism("Grass")
+# game.addNewOrganism("Grass")
+# game.addNewOrganism("Grass")
+# game.addNewOrganism("Sow_thistle")
+# game.addNewOrganism("Guarana")
+# game.addNewOrganism("Guarana")
+# game.addNewOrganism("Guarana")
+# game.addNewOrganism("Belladonna")
+# game.addNewOrganism("Belladonna")
+# game.addNewOrganism("Belladonna")
+# game.addNewOrganism("Hogweed")
+# game.addNewOrganism("Hogweed")
+# game.addNewOrganism("Hogweed")
 
 game.addNewOrganism("Sheep")
 game.addNewOrganism("Sheep")
@@ -52,5 +51,6 @@ game.addNewOrganism("Antelope")
 game.addNewOrganism("Cybersheep")
 
 game.drawWorld(board)
+
 
 root.mainloop()

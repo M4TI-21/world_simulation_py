@@ -14,3 +14,9 @@ class Guarana(Plant):
     
     def draw(self, board):
         board.create_rectangle(self.getX(), self.getY(), self.getX() + FIELD_SIZE, self.getY() + FIELD_SIZE, fill="red", outline="red", width="2")
+
+    def collision(self, opponent):
+        opponent.increaseStrength()
+        self.world.removeOrganism(self)
+        self.world.addLog(f"{opponent.getTypeName()} ate {self.getTypeName()}")
+        self.world.addLog(f"{opponent.getTypeName()}'s strength increased")

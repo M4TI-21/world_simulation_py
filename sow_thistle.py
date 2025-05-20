@@ -1,6 +1,6 @@
 from plant import Plant
 from defines import *
-from world import World
+import random as rd
 
 class SowThistle(Plant):
     def __init__(self, strength, initiative, age, x, y, prevX, prevY, world):
@@ -14,3 +14,23 @@ class SowThistle(Plant):
 
     def draw(self, board):
         board.create_rectangle(self.getX(), self.getY(), self.getX() + FIELD_SIZE, self.getY() + FIELD_SIZE, fill="yellow", outline="yellow", width="2")
+
+    def action(self):
+        for _ in range(3):
+            sowSuccess = rd.randint(0, 4)
+            if (sowSuccess):
+                neighbouringPos = self.findNeighbouringPos(self.getX(), self.getY())
+
+                if not neighbouringPos:
+                    self.world.addLog("No place to sow.")
+
+                position = rd.randint(0, len(neighbouringPos) - 1)
+                newX, newY = neighbouringPos[position]
+                x = newX
+                y = newY
+
+                isFree = self.world.getOrganismPosition(x, y) == None
+
+                if isFree:
+                    sowed_plant = self.copyOrganism(x, y)
+                    self.world.pushOrganism(sowed_plant)

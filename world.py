@@ -1,4 +1,3 @@
-from organism import Organism
 import random as rd
 from defines import *
 
@@ -75,6 +74,22 @@ class World:
             new_organism.setPosition(position[0], position[1])
             self.addLog(f"{new_organism.getTypeName()} has been added.")
 
+    def makeTurn(self, board):
+        self.addLog(f"---- Turn {self.round_number} has started ----")
+        for organism in self._organisms:
+            if organism.isAlive:
+                organism.action()
+                organism.increaseAge()
+
+        self.removeDeadOrganisms()
+        self.addLog(f"---- Turn {self.round_number} has ended ----")
+        self.addLog("Press 'S' to save the game.")
+        self.addLog("Press 'L' to load saved game.")
+        self.addLog("Press Spacebar to continue.")
+        self.round_number += 1
+
+        self.drawWorld(board)
+        
     def getOrganismPosition(self, x, y):
         for organism in self._organisms:
             if organism.getX() == x and organism.getY() == y:
@@ -97,3 +112,9 @@ class World:
                 continue
             else:
                 return [x, y]
+            
+    def removeOrganism(self, organism):
+        organism.kill()
+
+    def removeDeadOrganisms(self):
+        self._organisms = [org for org in self._organisms if org.isAlive]

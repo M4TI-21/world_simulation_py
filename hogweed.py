@@ -1,6 +1,7 @@
 from plant import Plant
+from animal import Animal
 from defines import *
-from world import World
+import random as rd
 
 class Hogweed(Plant):
     def __init__(self, strength, initiative, age, x, y, prevX, prevY, world):
@@ -14,3 +15,37 @@ class Hogweed(Plant):
 
     def draw(self, board):
         board.create_rectangle(self.getX(), self.getY(), self.getX() + FIELD_SIZE, self.getY() + FIELD_SIZE, fill="white", outline="white", width="2")
+
+    def action(self):
+        sowSuccess = rd.randint(0, 4)
+        neighbouringPos = self.findNeighbouringPos(self.getX(), self.getY())
+        if (sowSuccess):
+
+            if not neighbouringPos:
+                self.world.addLog("No place to sow.")
+
+            position = rd.randint(0, len(neighbouringPos) - 1)
+            newX, newY = neighbouringPos[position]
+            x = newX
+            y = newY
+
+            isFree = self.world.getOrganismPosition(x, y) == None
+
+            if isFree:
+                sowed_plant = self.copyOrganism(x, y)
+                self.world.pushOrganism(sowed_plant)
+
+        for pos in neighbouringPos:
+            x, y = pos
+
+            target = self.world.getOrganismPosition(x, y)
+            if target and isinstance(target, Animal):
+                self.world.removeOrganism(target)
+                self.world.addLog(f"{target.getTypeName()} was killed by Hogweed")
+
+
+
+    def collision(self, opponent):
+        self.world.removeOrganism(self)
+        self.world.removeOrganism(opponent)
+        self.world.addLog(f"{opponent.getTypeName()} was killed by Hogweed")
