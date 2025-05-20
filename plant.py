@@ -9,9 +9,9 @@ class Plant(Organism):
         return "Plant has been created."
     
     @abstractmethod
-    def getTypeName(self):
+    def getTypeName(self) -> str:
         pass
 
     @abstractmethod
-    def draw(self):
+    def draw(self, board):
         pass

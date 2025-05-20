@@ -22,12 +22,13 @@ class World:
         self.printLogs()
         
     def addNewOrganism(self, type):
+        new_organism = None
         match type:
             case "Grass":
                 from grass import Grass
                 new_organism = Grass(0, 0, 0, 0, 0, 0, 0, self)
                 self._organisms.append(new_organism)
-            case "Sow thistle":
+            case "Sow_thistle":
                 from sow_thistle import SowThistle
                 new_organism = SowThistle(0, 0, 0, 0, 0, 0, 0, self)
                 self._organisms.append(new_organism)
@@ -35,10 +36,44 @@ class World:
                 from guarana import Guarana
                 new_organism = Guarana(0, 0, 0, 0, 0, 0, 0, self)
                 self._organisms.append(new_organism)
+            case "Belladonna":
+                from belladonna import Belladonna
+                new_organism = Belladonna(99, 0, 0, 0, 0, 0, 0, self)
+                self._organisms.append(new_organism)
+            case "Hogweed":
+                from hogweed import Hogweed
+                new_organism = Hogweed(10, 0, 0, 0, 0, 0, 0, self)
+                self._organisms.append(new_organism)
+            case "Sheep":
+                from sheep import Sheep
+                new_organism = Sheep(4, 4, 0, 0, 0, 0, 0, self)
+                self._organisms.append(new_organism)
+            case "Wolf":
+                from wolf import Wolf
+                new_organism = Wolf(9, 5, 0, 0, 0, 0, 0, self)
+                self._organisms.append(new_organism)
+            case "Fox":
+                from fox import Fox
+                new_organism = Fox(3, 7, 0, 0, 0, 0, 0, self)
+                self._organisms.append(new_organism)
+            case "Turtle":
+                from turtle1 import Turtle
+                new_organism = Turtle(2, 1, 0, 0, 0, 0, 0, self)
+                self._organisms.append(new_organism)
+            case "Antelope":
+                from antelope import Antelope
+                new_organism = Antelope(4, 4, 0, 0, 0, 0, 0, self)
+                self._organisms.append(new_organism)
+            case "Cybersheep":
+                from cybersheep import Cybersheep
+                new_organism = Cybersheep(11, 4, 0, 0, 0, 0, 0, self)
+                self._organisms.append(new_organism)
 
         position = self.findPositions()
-        new_organism.setPosition(position[0], position[1])
-        self.addLog(f"{new_organism.getTypeName()} has been created at position ({position[0]}, {position[1]})")
+
+        if new_organism != None:
+            new_organism.setPosition(position[0], position[1])
+            self.addLog(f"{new_organism.getTypeName()} has been added.")
 
     def getOrganismPosition(self, x, y):
         for organism in self._organisms:
