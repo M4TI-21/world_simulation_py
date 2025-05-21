@@ -18,19 +18,18 @@ class SowThistle(Plant):
     def action(self):
         for _ in range(3):
             sowSuccess = rd.randint(0, 4)
-            if (sowSuccess):
+            if sowSuccess == 0:
                 neighbouringPos = self.findNeighbouringPos(self.getX(), self.getY())
 
                 if not neighbouringPos:
                     self.world.addLog("No place to sow.")
+                    return
 
                 position = rd.randint(0, len(neighbouringPos) - 1)
                 newX, newY = neighbouringPos[position]
-                x = newX
-                y = newY
 
-                isFree = self.world.getOrganismPosition(x, y) == None
+                isFree = self.world.getOrganismPosition(newX, newY) == None
 
                 if isFree:
-                    sowed_plant = self.copyOrganism(x, y)
+                    sowed_plant = self.copyOrganism(newX, newY)
                     self.world.pushOrganism(sowed_plant)

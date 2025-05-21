@@ -57,7 +57,7 @@ class Organism:
     def findNeighbouringPos(self, x, y):
         neighbouringPos = []
         field = FIELD_SIZE
-
+        
         if x - field >= 0:
             neighbouringPos.append([x - field, y])
         if x + field <= BOARD_SIZE - field:

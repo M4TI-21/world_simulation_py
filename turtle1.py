@@ -17,20 +17,19 @@ class Turtle(Animal):
 
     def action(self):
         moveSuccess = rd.randint(0, 3)
-        if (moveSuccess):
-            self.setPrevPosition(self.getX, self.getY)
+        if moveSuccess == 0:
+            self.setPrevPosition(self.getX(), self.getY())
 
             neighbouringPos = self.findNeighbouringPos(self.getX(), self.getY())
 
             if not neighbouringPos:
                 self.world.addLog("No place to move.")
+                return
 
             position = rd.randint(0, len(neighbouringPos) - 1)
             newX, newY = neighbouringPos[position]
-            x = newX
-            y = newY
 
-            met_organism = self.world.getOrganismPosition(x, y)
+            met_organism = self.world.getOrganismPosition(newX, newY)
 
             if met_organism and met_organism != self:
                 if met_organism.getTypeName() == self.getTypeName():
@@ -40,8 +39,7 @@ class Turtle(Animal):
                         return
                     else:
                         position = rd.randint(0, len(neighbouringPos) - 1)
-                        newX = neighbouringPos[0]
-                        newY = neighbouringPos[1]
+                        newX, newY = neighbouringPos[position]
 
                         new_animal = self.copyOrganism(newX, newY)
                         self.world.pushOrganism(new_animal)
@@ -50,7 +48,7 @@ class Turtle(Animal):
                     self.collision(met_organism)
             
             if not met_organism or met_organism.getTypeName() != self.getTypeName():
-                self.setPosition(x, y)
+                self.setPosition(newX, newY)
 
     def collision(self, opponent):
         isOppAnimal = isinstance(opponent, Animal)

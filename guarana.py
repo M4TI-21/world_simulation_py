@@ -19,4 +19,4 @@ class Guarana(Plant):
         opponent.increaseStrength()
         self.world.removeOrganism(self)
         self.world.addLog(f"{opponent.getTypeName()} ate {self.getTypeName()}")
-        self.world.addLog(f"{opponent.getTypeName()}'s strength increased")
+        self.world.addLog(f"{opponent.getTypeName()}'s strength has increased")
